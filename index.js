@@ -54,11 +54,16 @@ const app = Vue.createApp({
   },
 
   methods: {
+    alCargarPagina () {
+      localStorage.setItem('arrayData', JSON.stringify(this.arrayDatos))
+    },
+    /*************** */
     registroAleatorio () {
       const maximo = this.arrayDatos.length - 1
       const numero = Math.round(Math.random() * maximo)
       this.añoAleatorio = this.arrayDatos[numero].año
       console.log('Año aleatorio', this.añoAleatorio)
+      localStorage.setItem('añoAleatorio', JSON.stringify(this.añoAleatorio))
     },
     verificarAño () {
       if (this.añoIngresado != this.añoAleatorio) {
@@ -73,6 +78,7 @@ const app = Vue.createApp({
         this.diferencia = Math.abs(this.añoIngresado - this.añoAleatorio)
 
         alert('Has acertado!')
+        localStorage.removeItem('añoAleatorio')
       }
 
       this.añoIngresado = ''
@@ -93,7 +99,7 @@ const app = Vue.createApp({
     }
   },
   created: function () {
-    // this.onLoadPage()
+    this.alCargarPagina()
   }
 })
 
