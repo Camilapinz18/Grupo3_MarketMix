@@ -1,0 +1,12 @@
+/* body{
+    background-image: url("https://img.freepik.com/fotos-premium/textura-fondo-signos-interrogacion-impresos_124595-213.jpg");
+} */
+.w-50-responsive{
+    width: 50% !important;
+}
+
+@media(max-width:576px){
+    .w-50-responsive{
+        width: 90% !important;
+    }
+}
