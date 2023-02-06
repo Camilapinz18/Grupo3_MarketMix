@@ -38,7 +38,7 @@
         </div>
     
         <div class="container mt-5  w-50-responsive border p-3" v-if="true">
-            <form @submit.prevent="">
+            <form @submit.prevent="verificarAño ">
                 <legend class="mb-3 text-success">Adivinando la edad</legend>
                 <div class="mb-3 ">
                     <label for="edad" class="form-label">Edad:</label>
@@ -78,5 +78,6 @@
     </section>
     
   <script src="./index.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

@@ -77,7 +77,14 @@ const app = Vue.createApp({
       } else {
         this.diferencia = Math.abs(this.añoIngresado - this.añoAleatorio)
 
-        alert('Has acertado!')
+        // alert('Has acertado!')
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Has acertado!',
+            showConfirmButton: false,
+            timer: 1500
+          })
         localStorage.removeItem('añoAleatorio')
       }
 
@@ -88,12 +95,22 @@ const app = Vue.createApp({
     devolverPista () {
       for (let i = 0; i < this.pistas.length; i++) {
         if (this.diferencia === this.pistas[i].diferencia) {
-          alert(`Hay una diferencia de un ${this.pistas[i].periodo}`)
+        //   alert(`Hay una diferencia de un ${this.pistas[i].periodo}`)
+          Swal.fire(
+            '¿Quieres una pista?',
+            `Hay una diferencia de un ${this.pistas[i].periodo}`,
+            'question'
+          )
         } else if (
           this.diferencia > this.pistas[i].diferencia &&
           this.diferencia < this.pistas[i + 1].diferencia
         ) {
-          alert(`Hay una diferencia de mas de un ${this.pistas[i].periodo}`)
+        //   alert(`Hay una diferencia de mas de un ${this.pistas[i].periodo}`)
+          Swal.fire(
+            '¿Quieres una pista?',
+            `Hay una diferencia de mas de un ${this.pistas[i].periodo}`,
+            'question'
+          )
         }
       }
     }
