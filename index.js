@@ -32,6 +32,7 @@ const app = Vue.createApp({
       añoAleatorio: null,
       diferencia: null,
       pistas: [
+        { diferencia: 1, periodo: 'año' },
         { diferencia: 2, periodo: 'bienio' },
         { diferencia: 3, periodo: 'trienio' },
         { diferencia: 4, periodo: 'cuatrienio' },
@@ -57,24 +58,21 @@ const app = Vue.createApp({
       const maximo = this.arrayDatos.length - 1
       const numero = Math.round(Math.random() * maximo)
       this.añoAleatorio = this.arrayDatos[numero].año
-      console.log('Numero', this.añoAleatorio)
+      console.log('Año aleatorio', this.añoAleatorio)
     },
     verificarAño () {
-      // this.añoIngresado
-
       if (this.añoIngresado != this.añoAleatorio) {
         this.diferencia = Math.abs(this.añoIngresado - this.añoAleatorio)
-        console.log('Es distinto', this.diferencia)
 
         if (this.añoIngresado < this.añoAleatorio) {
           this.diferencia = Math.abs(this.añoIngresado - this.añoAleatorio)
-          console.log('Es menor', this.diferencia)
         } else if (this.añoIngresado > this.añoAleatorio) {
           this.diferencia = Math.abs(this.añoIngresado - this.añoAleatorio)
-          console.log('Es mayor', this.diferencia)
         }
       } else {
-        console.log('Es igual')
+        this.diferencia = Math.abs(this.añoIngresado - this.añoAleatorio)
+
+        alert('Has acertado!')
       }
 
       this.añoIngresado = ''
@@ -82,11 +80,16 @@ const app = Vue.createApp({
       this.devolverPista()
     },
     devolverPista () {
-      this.pistas.map(pista => {
-        pista.diferencia === this.diferencia
-          ? alert(`Hay una diferencia de un ${pista.periodo}`)
-          : null
-      })
+      for (let i = 0; i < this.pistas.length; i++) {
+        if (this.diferencia === this.pistas[i].diferencia) {
+          alert(`Hay una diferencia de un ${this.pistas[i].periodo}`)
+        } else if (
+          this.diferencia > this.pistas[i].diferencia &&
+          this.diferencia < this.pistas[i + 1].diferencia
+        ) {
+          alert(`Hay una diferencia de mas de un ${this.pistas[i].periodo}`)
+        }
+      }
     }
   },
   created: function () {
