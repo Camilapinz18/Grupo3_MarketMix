@@ -66,6 +66,7 @@ const app = Vue.createApp({
       localStorage.setItem('añoAleatorio', JSON.stringify(this.añoAleatorio))
     },
     verificarAño () {
+      console.log("Veriricar año")
       if (this.añoIngresado != this.añoAleatorio) {
         this.diferencia = Math.abs(this.añoIngresado - this.añoAleatorio)
 
