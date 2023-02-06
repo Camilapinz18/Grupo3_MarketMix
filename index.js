@@ -49,13 +49,17 @@ const app = Vue.createApp({
         { diferencia: 60, periodo: 'dodecalustro' },
         { diferencia: 100, periodo: 'siglo' },
         { diferencia: 1000, periodo: 'milenio' }
-      ]
+      ],
+      isInicioJuego:false,
+      isAdivinarAño: false,
+      isTablaResultados:false
     }
   },
 
   methods: {
     alCargarPagina () {
       localStorage.setItem('arrayData', JSON.stringify(this.arrayDatos))
+      this.isInicioJuego=true
     },
     /*************** */
     registroAleatorio () {
@@ -64,6 +68,8 @@ const app = Vue.createApp({
       this.añoAleatorio = this.arrayDatos[numero].año
       console.log('Año aleatorio', this.añoAleatorio)
       localStorage.setItem('añoAleatorio', JSON.stringify(this.añoAleatorio))
+      this.isAdivinarAño=true
+      this.isInicioJuego=false
     },
     verificarAño () {
       console.log("Veriricar año")
@@ -87,6 +93,8 @@ const app = Vue.createApp({
             timer: 1500
           })
         localStorage.removeItem('añoAleatorio')
+        this.isAdivinarAño=false
+        this.isTablaResultados=true
       }
 
       this.añoIngresado = ''

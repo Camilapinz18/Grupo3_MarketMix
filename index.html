@@ -11,8 +11,8 @@
 </head>
 <body>
     <section id="app">
-        <div class="container mt-5  w-50-responsive border p-3" v-if="true">
-            <form @submit.prevent="">
+        <div class="container mt-5  w-50-responsive border p-3" v-if="isInicioJuego">
+            <form @submit.prevent="registroAleatorio">
                 <legend class="mb-3 text-success">Inicio del Juego</legend>
                 <div class="mb-3 ">
                     <label for="nombre" class="form-label">Nombre Jugador:</label>
@@ -24,25 +24,12 @@
             </form>     
         </div>
     
-        <!-- <div class="container mt-5  w-50-responsive border p-3" v-if="true">
-            <form @submit.prevent="">
-                <legend class="mb-3 text-success">Registro de jugador</legend>
-                <div class="mb-3 ">
-                    <label for="nombre-registro" class="form-label">Nombre:</label>
-                    <input type="text" class="form-control" id="nombre-registro">
-                    <label for="edad-registro" class="form-label">Edad:</label>
-                    <input type="number" class="form-control" id="edad-registro" > 
-                </div>
-                <button type="submit" class="btn btn-success">Registrar</button>
-            </form>     
-        </div> -->
-    
-        <div class="container mt-5  w-50-responsive border p-3" v-if="true">
+        <div class="container mt-5  w-50-responsive border p-3" v-if="isAdivinarAño">
             <form @submit.prevent="verificarAño ">
                 <legend class="mb-3 text-success">Adivinando la edad</legend>
                 <div class="mb-3 ">
                     <label for="edad" class="form-label">Edad:</label>
-                    <input type="number" class="form-control" id="edad" aria-describedby="edad-descripcion" placeholder="Edad que usted considere correcta">
+                    <input v-model="añoIngresado" type="number" class="form-control" id="edad" aria-describedby="edad-descripcion" placeholder="Edad que usted considere correcta">
                     <div id="edad-descripcion" class="form-text">Intento número: n</div>
                 </div>
                 
@@ -50,7 +37,7 @@
             </form>  
         </div>
     
-        <div class="container mt-5 mb-5  w-50-responsive border " v-if="true">
+        <div class="container mt-5 mb-5  w-50-responsive border " v-if="isTablaResultados">
             <table class="table">
                 <thead>
                   <tr class="text-success">
