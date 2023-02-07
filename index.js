@@ -56,6 +56,11 @@ const app = Vue.createApp({
   methods: {
     alCargarPagina () {
       localStorage.setItem('arrayData', JSON.stringify(this.arrayDatos))
+<<<<<<< Updated upstream
+=======
+      localStorage.setItem('resultados', localStorage.getItem('resultados'))
+      this.isInicioJuego = true
+>>>>>>> Stashed changes
     },
     /*************** */
     registroAleatorio () {
