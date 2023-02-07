@@ -1,43 +1,47 @@
 const app = new Vue({
     el: "#app",
     data: {
-        numberToGuess: 1987,
-        guess: '',
-        attempts: 7,
-        resultMessage: '',
-        showForm: false,
-        playerName: '',
-        results: []
+        numAdivinar: 1987,
+        adivinar: '',
+        intentos: 7,
+        resultadoMensaje: '',
+        mostrarForm: false,
+        mostrarMensaje: false,
+        nombreJugador: '',
+        resultados: []
   
     },
     methods: {
-        checkGuess() {
-            if (this.guess == this.numberToGuess) {
-              this.resultMessage = "Felicidades, adivinaste el número";
-              this.showForm = true;
-            } else if (this.attempts > 1) {
-              this.attempts--;
-              this.resultMessage = "Incorrecto, intenta de nuevo";
+        comprobaAdivi() {
+            if (this.adivinar == this.numAdivinar) {
+              this.resultadoMensaje = "Felicidades, adivinaste el número";
+              this.mostrarForm = true;
+              this.mostrarMensaje = true;
+            } else if (this.intentos > 1) {
+              this.intentos--;
+              this.resultadoMensaje = "Incorrecto, intenta de nuevo";
+              this.mostrarMensaje = true;
             } else {
-              this.resultMessage = "Se acabaron los intentos";
-              this.showForm = true;
+              this.resultadoMensaje = "Se acabaron los intentos";
+              this.mostrarForm = true;
+              this.mostrarMensaje = true;
             }
           },
-          saveResult() {
-            this.results.push({ name: this.playerName, attempts: 7 - this.attempts });
-            localStorage.setItem('results', JSON.stringify(this.results));
-            this.resetGame();
+          guardarResultados() {
+            this.resultados.push({ nombre: this.nombreJugador, intentos: 8 - this.intentos });
+            localStorage.setItem('resultados', JSON.stringify(this.resultados));
+            this.reiniciarJuego();
           },
-          resetGame() {
-            this.guess = '';
-            this.attempts = 7;
-            this.resultMessage = '';
-            this.showForm = false;
-            this.playerName = '';
+          reiniciarJuego() {
+            this.adivinar = '';
+            this.intentos = 7;
+            this.resultadoMensaje = '';
+            this.mostrarForm = false;
+            this.nombreJugador = '';
           },
-          mounted() {
-            if (localStorage.getItem('results')) {
-              this.results = JSON.parse(localStorage.getItem('results'));
+          subida() {
+            if (localStorage.getItem('resultados')) {
+              this.resultados = JSON.parse(localStorage.getItem('resultados'));
             }
           }
     }

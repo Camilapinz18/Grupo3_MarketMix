@@ -9,22 +9,22 @@
 <body>
     <div id="app">
         <p>Adivina el número:</p>
-    <input type="text" v-model="guess">
-    <button @click="checkGuess">Comprobar</button>
-    <p v-if="showResult">{{ resultMessage }}</p>
-    <p v-if="attempts === 0">Fin del juego</p>
-    <p>Intentos restantes: {{ attempts }}</p>
-    <p v-if="showForm">Introduce tu nombre:</p>
-    <input type="text" v-if="showForm" v-model="playerName">
-    <button v-if="showForm" @click="saveResult">Guardar resultado</button>
-    <table v-if="results.length">
+    <input type="text" v-model="adivinar">
+    <button @click="comprobaAdivi">Comprobar</button>
+    <p v-if="mostrarMensaje">{{ resultadoMensaje }}</p>
+    <p v-if="intentos === 0">Fin del juego</p>
+    <p>Intentos restantes: {{ intentos }}</p>
+    <p v-if="mostrarForm">Introduce tu nombre:</p>
+    <input type="text" v-if="mostrarForm" v-model="nombreJugador">
+    <button v-if="mostrarForm" @click="guardarResultados">Guardar resultado</button>
+    <table v-if="resultados.length">
       <tr>
         <th>Nombre</th>
         <th>Intentos</th>
       </tr>
-      <tr v-for="result in results">
-        <td>{{ result.name }}</td>
-        <td>{{ result.attempts }}</td>
+      <tr v-for="resultado in resultados">
+        <td>{{ resultado.nombre }}</td>
+        <td>{{ resultado.intentos }}</td>
       </tr>
     </table>
     </div>
