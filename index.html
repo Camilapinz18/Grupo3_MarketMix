@@ -16,11 +16,12 @@
                 <legend class="mb-3 text-success">Inicio del Juego</legend>
                 <div class="mb-3 ">
                     <label for="nombre" class="form-label">Nombre Jugador:</label>
-                    <input type="text" class="form-control" id="nombre" aria-describedby="nombre-descripcion">
+                    <input v-model="nombreJugador" type="text" class="form-control" id="nombre" aria-describedby="nombre-descripcion">
                     <div id="nombre-descripcion" class="form-text">Ingrese el nombre de usuario para iniciar el juego</div>
                 </div>
                 
                 <button type="submit" class="btn btn-success">Iniciar</button>
+                <button @click="mostrarResultados" class="btn btn-warning">Tabla de posiciones</button>
             </form>     
         </div>
     
@@ -30,7 +31,7 @@
                 <div class="mb-3 ">
                     <label for="edad" class="form-label">Edad:</label>
                     <input v-model="añoIngresado" type="number" class="form-control" id="edad" aria-describedby="edad-descripcion" placeholder="Edad que usted considere correcta">
-                    <div id="edad-descripcion" class="form-text">Intento número: n</div>
+                    <div id="edad-descripcion" class="form-text">Intentos restantes: {{ intentos }}</div>
                 </div>
                 
                 <button type="submit" class="btn btn-success">Adivinar</button>
@@ -46,21 +47,15 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>Camila Pinzón</td>
-                    <td>3</td>
+                  <tr v-for="resultado in resultados">
+                    <td>{{ resultado.nombre}}</td>
+                    <td>{{ resultado.intentos }}</td>
                   </tr>
-                  <tr>
-                    <td>Juan Camilo Cetina</td>
-                    <td>2</td>
-                  </tr>
-                  <tr>
-                    <td>Juan Camilo Paredes</td>
-                    <td>7</td>
-                  </tr>
-                 
+                       
                 </tbody>
               </table>
+
+              <button @click="reiniciarJuego" class="btn btn-warning">Volver a jugar</button>/
         </div>
     </section>
     
