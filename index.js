@@ -60,7 +60,8 @@ const app = Vue.createApp({
       mostrarForm: false,
       mostrarMensaje: false,
       nombreJugador: "",
-      resultados : JSON.parse(localStorage.getItem("resultados"))
+      resultados : JSON.parse(localStorage.getItem("resultados")).sort(((a, b) => a.intentos - b.intentos))
+      
     };
   },
 
