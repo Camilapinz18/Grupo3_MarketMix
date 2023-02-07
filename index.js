@@ -65,6 +65,7 @@ const app = Vue.createApp({
   },
 
   methods: {
+    
     alCargarPagina() {
       localStorage.setItem("arrayData", JSON.stringify(this.arrayDatos));
       localStorage.setItem('resultados', localStorage.getItem("resultados"));
