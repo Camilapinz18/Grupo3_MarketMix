@@ -20,14 +20,14 @@
                     <div id="nombre-descripcion" class="form-text">Ingrese el nombre de usuario para iniciar el juego</div>
                 </div>
                 
-                <button type="submit" class="btn btn-success">Iniciar</button>
-                <button @click="mostrarResultados" class="btn btn-warning">Tabla de posiciones</button>
+                <button type="submit" class="btn btn-success">Iniciar</button>&nbsp
+                <button @click="mostrarResultados" class="btn btn-info">Tabla de posiciones</button>
             </form>     
         </div>
     
         <div class="container mt-5  w-50-responsive border p-3" v-if="isAdivinarAño">
             <form @submit.prevent="verificarAño ">
-                <legend class="mb-3 text-success">Adivinando la edad</legend>
+                <legend class="mb-3 text-success">Adivina el año {{ nombreJugador }}</legend>
                 <div class="mb-3 ">
                     <label for="edad" class="form-label">Edad:</label>
                     <input v-model="añoIngresado" type="number" class="form-control" id="edad" aria-describedby="edad-descripcion" placeholder="Edad que usted considere correcta">
@@ -55,7 +55,7 @@
                 </tbody>
               </table>
 
-              <button @click="reiniciarJuego" class="btn btn-warning">Volver a jugar</button>/
+              <button @click="reiniciarJuego" class="btn btn-info">Volver a jugar</button>/
         </div>
     </section>
     
