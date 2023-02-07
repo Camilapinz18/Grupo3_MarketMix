@@ -29,7 +29,7 @@
             <form @submit.prevent="verificarAño ">
                 <legend class="mb-3 text-success">Adivina el año {{ nombreJugador }}</legend>
                 <div class="mb-3 ">
-                    <label for="edad" class="form-label">Edad:</label>
+                    <label for="edad" class="form-label">Año de nacimiento:</label>
                     <input v-model="añoIngresado" type="number" class="form-control" id="edad" aria-describedby="edad-descripcion" placeholder="Edad que usted considere correcta">
                     <div id="edad-descripcion" class="form-text">Intentos restantes: {{ intentos }}</div>
                 </div>

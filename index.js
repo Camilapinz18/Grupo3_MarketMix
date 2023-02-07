@@ -85,7 +85,16 @@ const app = Vue.createApp({
     },
     verificarAño() {
       console.log("Veriricar año");
+      if(this.añoIngresado<=1000){
+        Swal.fire('Recuerde seleccionar un año mayor al año 1000 DC');
+        return
+      }
+      if(this.añoIngresado>2023){
+        Swal.fire('Es imposible que alguien ya haya nacido después del 2023');
+        return
+      }
       if (this.añoIngresado != this.añoAleatorio) {
+        
         this.diferencia = Math.abs(this.añoIngresado - this.añoAleatorio);
 
         if (this.añoIngresado < this.añoAleatorio) {
@@ -142,8 +151,8 @@ const app = Vue.createApp({
       localStorage.setItem("resultados", JSON.stringify(localResultados));
 
       this.añoIngresado = "";
-
       this.devolverPista();
+      
     },
     mostrarResultados(){
       this.isInicioJuego=false
@@ -157,6 +166,7 @@ const app = Vue.createApp({
     },
     
     devolverPista() {
+      
       for (let i = 0; i < this.pistas.length; i++) {
         if (this.diferencia === this.pistas[i].diferencia) {
           //   alert(`Hay una diferencia de un ${this.pistas[i].periodo}`)
