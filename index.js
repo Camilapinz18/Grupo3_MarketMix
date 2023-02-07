@@ -32,23 +32,23 @@ const app = Vue.createApp({
       añoAleatorio: null,
       diferencia: null,
       pistas: [
-        { diferencia: 1, periodo: "año" },
-        { diferencia: 2, periodo: "bienio" },
-        { diferencia: 3, periodo: "trienio" },
-        { diferencia: 4, periodo: "cuatrienio" },
-        { diferencia: 5, periodo: "lustro" },
-        { diferencia: 6, periodo: "sexenio" },
-        { diferencia: 7, periodo: "septenio" },
-        { diferencia: 8, periodo: "octenio" },
-        { diferencia: 9, periodo: "novenio" },
-        { diferencia: 10, periodo: "decada" },
-        { diferencia: 11, periodo: "oncenio" },
-        { diferencia: 12, periodo: "docenio" },
-        { diferencia: 20, periodo: "dicenio" },
-        { diferencia: 50, periodo: "decalustro" },
-        { diferencia: 60, periodo: "dodecalustro" },
-        { diferencia: 100, periodo: "siglo" },
-        { diferencia: 1000, periodo: "milenio" },
+        { diferencia: 1, periodo: 'año', pista: '(1 / 1)' },
+        { diferencia: 2, periodo: 'bienio', pista: '((1 + 1) * 1)' },
+        { diferencia: 3, periodo: 'trienio', pista: '((1 + 2) * 1)' },
+        { diferencia: 4, periodo: 'cuatrienio', pista: '((6 / 2) + (2 / 2))' },
+        { diferencia: 5, periodo: 'lustro', pista: '(x + 2 = 7)' },
+        { diferencia: 6, periodo: 'sexenio', pista: '(x - 2 = 4)' },
+        { diferencia: 7, periodo: 'septenio', pista: '(x + 6 = 13)' },
+        { diferencia: 8, periodo: 'octenio', pista: '(x + 7 = 15)' },
+        { diferencia: 9, periodo: 'novenio', pista: '(x / 2 = 4.5)' },
+        { diferencia: 10, periodo: 'decada', pista: '(4 * 2 + 2)' },
+        { diferencia: 11, periodo: 'oncenio', pista: '(6 * 2 - 1)' },
+        { diferencia: 12, periodo: 'docenio', pista: '((4 * 3)/1)' },
+        { diferencia: 20, periodo: 'dicenio', pista: '( ( (15 + 5) / 2 ) * 2 )' },
+        { diferencia: 50, periodo: 'decalustro', pista: '( ( (10 * 5) + 10) - 10)' },
+        { diferencia: 60, periodo: 'dodecalustro', pista: '(x - 2 = 58)' },
+        { diferencia: 100, periodo: 'siglo', pista: '(x + 99 = 199)' },
+        { diferencia: 1000, periodo: 'milenio', pista: '(x - 2 = 998)' }
       ],
       isInicioJuego: false,
       isAdivinarAño: false,
@@ -60,19 +60,30 @@ const app = Vue.createApp({
       mostrarForm: false,
       mostrarMensaje: false,
       nombreJugador: "",
-      resultados: [],
+      resultados : this.ordenarParticipantes()
     };
   },
 
-
-
   methods: {
+    ordenarParticipantes(){
+      if(JSON.parse(localStorage.getItem("resultados"))!==null){
+        return JSON.parse(localStorage.getItem("resultados")).sort(((a, b) => a.intentos - b.intentos))  
+      }else{
+        return null
+      }
+     
+    },
+    
     alCargarPagina() {
       localStorage.setItem("arrayData", JSON.stringify(this.arrayDatos));
-      this.isInicioJuego = true;
+      localStorage.setItem('resultados', localStorage.getItem("resultados"));
+      this.isInicioJuego = true; 
     },
     /*************** */
     registroAleatorio() {
+      if (this.resultados === null){
+        this.resultados = []
+      }
       this.resultados.push({ nombre: this.nombreJugador, intentos: "" });
       localStorage.setItem("resultados", JSON.stringify(this.resultados));
       const maximo = this.arrayDatos.length - 1;
@@ -171,20 +182,22 @@ const app = Vue.createApp({
         if (this.diferencia === this.pistas[i].diferencia) {
           //   alert(`Hay una diferencia de un ${this.pistas[i].periodo}`)
           Swal.fire(
-            "¿Quieres una pista?",
-            `Hay una diferencia de un ${this.pistas[i].periodo}`,
-            "question"
-          );
+            '¿Quieres una pista?',
+            `Hay una diferencia de un ${this.pistas[i].periodo}.
+            Un ${this.pistas[i].periodo}, son ${this.pistas[i].pista} años`,
+            'question'
+          )
         } else if (
           this.diferencia > this.pistas[i].diferencia &&
           this.diferencia < this.pistas[i + 1].diferencia
         ) {
           //   alert(`Hay una diferencia de mas de un ${this.pistas[i].periodo}`)
           Swal.fire(
-            "¿Quieres una pista?",
-            `Hay una diferencia de mas de un ${this.pistas[i].periodo}`,
-            "question"
-          );
+            '¿Quieres una pista?',
+            `Hay una diferencia de mas de un ${this.pistas[i].periodo}.
+            Un ${this.pistas[i].periodo}, son ${this.pistas[i].pista} años.`,
+            'question'
+          )
         }
       }
     },
