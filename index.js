@@ -60,17 +60,21 @@ const app = Vue.createApp({
       mostrarForm: false,
       mostrarMensaje: false,
       nombreJugador: "",
-      resultados: []
+      resultados : JSON.parse(localStorage.getItem("resultados"))
     };
   },
 
   methods: {
     alCargarPagina() {
       localStorage.setItem("arrayData", JSON.stringify(this.arrayDatos));
-      this.isInicioJuego = true;
+      localStorage.setItem('resultados', localStorage.getItem("resultados"));
+      this.isInicioJuego = true; 
     },
     /*************** */
     registroAleatorio() {
+      if (this.resultados === null){
+        this.resultados = []
+      }
       this.resultados.push({ nombre: this.nombreJugador, intentos: "" });
       localStorage.setItem("resultados", JSON.stringify(this.resultados));
       const maximo = this.arrayDatos.length - 1;
