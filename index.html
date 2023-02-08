@@ -36,12 +36,12 @@
             </div>
           </div>
 
-          <button type="submit" class="btn btn-success">Iniciar</button>&nbsp
-          <button @click="mostrarResultados" class="btn btn-info">
+          <button type="submit" class="btn btn-success">Iniciar</button>
+          <button @click="mostrarResultados" class="btn btn-info ms-3" v-if="!(resultados===null || resultados.length===0)">
             Tabla de posiciones
           </button>
         </form>
-        <button @click="mostrarInstrucciones" class="btn btn-success">
+        <button @click="mostrarInstrucciones" class="btn btn-success mt-2">
           Como jugar?
         </button>
       </div>
