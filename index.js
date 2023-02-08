@@ -68,7 +68,8 @@ const app = Vue.createApp({
       mostrarForm: false,
       mostrarMensaje: false,
       nombreJugador: '',
-      resultados: this.ordenarParticipantes()
+      resultados: this.ordenarParticipantes(),
+    
     }
   },
 
@@ -83,25 +84,51 @@ const app = Vue.createApp({
       }
     },
 
+    mostrarInstrucciones () {
+      Swal.fire({
+        title: '¿Como jugar?',
+        text: 'El objetivo del juego es adivinar un año de nacimiento de una persona misteriosa. Inicia el juego ingresando un año aleatorio, luego, da click en el botón "Adivinar". El juego te dará una pista, sigue la pista hasta que adivines el año misterioso. Recuerda que solo tendras 7 intentos para adivinar el año',
+        width: 600,
+        icon: 'question',
+        padding: '3em',
+        color: 'black',
+        background: '#fff',
+        backdrop: `
+          rgba(0,0,0,0.4)
+          url("/images/picmix.com_2389512.gif")
+          left top
+          no-repeat
+        `
+      })
+    },
     alCargarPagina () {
       localStorage.setItem('arrayData', JSON.stringify(this.arrayDatos))
       localStorage.setItem('resultados', localStorage.getItem('resultados'))
       this.isInicioJuego = true
+     
     },
     /*************** */
     registroAleatorio () {
-      if (this.resultados === null) {
-        this.resultados = []
+
+      if (this.nombreJugador === '') {
+        Swal.fire({
+          icon: 'warning',
+          text: 'Ingresa tu nombre'
+        })
+      } else {
+        if (this.resultados === null) {
+          this.resultados = []
+        }
+        this.resultados.push({ nombre: this.nombreJugador, intentos: '' })
+        localStorage.setItem('resultados', JSON.stringify(this.resultados))
+        const maximo = this.arrayDatos.length - 1
+        const numero = Math.round(Math.random() * maximo)
+        this.añoAleatorio = this.arrayDatos[numero].año
+        console.log('Año aleatorio', this.añoAleatorio)
+        localStorage.setItem('añoAleatorio', JSON.stringify(this.añoAleatorio))
+        this.isAdivinarAño = true
+        this.isInicioJuego = false
       }
-      this.resultados.push({ nombre: this.nombreJugador, intentos: '' })
-      localStorage.setItem('resultados', JSON.stringify(this.resultados))
-      const maximo = this.arrayDatos.length - 1
-      const numero = Math.round(Math.random() * maximo)
-      this.añoAleatorio = this.arrayDatos[numero].año
-      console.log('Año aleatorio', this.añoAleatorio)
-      localStorage.setItem('añoAleatorio', JSON.stringify(this.añoAleatorio))
-      this.isAdivinarAño = true
-      this.isInicioJuego = false
     },
     verificarAño () {
       console.log('Veriricar año')
@@ -118,10 +145,10 @@ const app = Vue.createApp({
 
         if (this.añoIngresado < this.añoAleatorio) {
           this.diferencia = Math.abs(this.añoIngresado - this.añoAleatorio)
-          this.devolverPista(this.añoIngresado,'menor')
+          this.devolverPista(this.añoIngresado, 'menor')
         } else if (this.añoIngresado > this.añoAleatorio) {
           this.diferencia = Math.abs(this.añoIngresado - this.añoAleatorio)
-          this.devolverPista(this.añoIngresado,'mayor')
+          this.devolverPista(this.añoIngresado, 'mayor')
         }
         this.intentos--
       } else {
@@ -153,6 +180,7 @@ const app = Vue.createApp({
         this.isTablaResultados = false
         this.isInicioJuego = true
         this.isAdivinarAño = false
+       
       }
       const localResultados = JSON.parse(localStorage.getItem('resultados'))
       const jugador = localResultados.find(j => j.nombre === this.nombreJugador)
@@ -171,7 +199,6 @@ const app = Vue.createApp({
       localStorage.setItem('resultados', JSON.stringify(localResultados))
 
       this.añoIngresado = ''
-     
     },
     mostrarResultados () {
       this.isInicioJuego = false
@@ -184,7 +211,7 @@ const app = Vue.createApp({
       this.isInicioJuego = true
     },
 
-    devolverPista (año,mensaje) {
+    devolverPista (año, mensaje) {
       for (let i = 0; i < this.pistas.length; i++) {
         if (this.diferencia === this.pistas[i].diferencia) {
           //   alert(`Hay una diferencia de un ${this.pistas[i].periodo}`)
